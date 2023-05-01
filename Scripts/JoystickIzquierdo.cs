@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class JoystickIzquierdo : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Joystick joystick;
+    public int velocidad;
+    public Rigidbody2D rb;
+    public bool conFisicas;
     void Start()
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        Vector2 direction = new Vector2(joystick.Horizontal, joystick.Vertical);
+        if (conFisicas)
+        {
+            rb.MovePosition(rb.position + direction * velocidad * Time.fixedDeltaTime);
+        }
+        else
+        {
+            gameObject.transform.Translate(direction * velocidad * Time.deltaTime);
+        }
     }
 }

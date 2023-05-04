@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Rigidbody2D playerRb;
     [SerializeField] float speed = 2f;
     [SerializeField] float jump = 10f;
+    [SerializeField] bool isGrounded = true;
     void Start()
     {
         
@@ -20,10 +21,22 @@ public class PlayerMovement : MonoBehaviour
         {
             Jump();
         }
+
         
     }
     public void Jump()
     {
-        playerRb.AddForce(Vector2.up * jump);
+        if(isGrounded)
+        {
+            playerRb.AddForce(Vector2.up * jump);
+            isGrounded = false;
+        }
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
     }
 }

@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float speed = 2f;
     [SerializeField] float jump = 10f;
     [SerializeField] bool isGrounded = true;
+    [SerializeField] Animator playerAnimator; 
     void Start()
     {
         
@@ -17,7 +18,15 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         playerRb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, playerRb.velocity.y);
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetAxis("Horizontal") == 0)
+        {
+            playerAnimator.SetBool("isWalking", false);
+        }
+        else
+        {
+            playerAnimator.SetBool("isWalking", true);
+        }
+        if(Input.GetMouseButtonDown(0)) //(Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }

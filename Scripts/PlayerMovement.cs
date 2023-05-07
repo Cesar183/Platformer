@@ -22,11 +22,17 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("isWalking", false);
         }
+        else if(Input.GetAxis("Horizontal") < 0)
+        {
+            playerAnimator.SetBool("isWalking", true);
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
         else
         {
             playerAnimator.SetBool("isWalking", true);
+            GetComponent<SpriteRenderer>().flipX = false;
         }
-        if(Input.GetMouseButtonDown(0)) //(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space)) // (Input.GetMouseButtonDown(0))
         {
             Jump();
         }
@@ -39,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerRb.AddForce(Vector2.up * jump);
             isGrounded = false;
+            playerAnimator.SetTrigger("Jump");
         }
     }
     void OnCollisionEnter2D(Collision2D collision)

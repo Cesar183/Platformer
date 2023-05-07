@@ -8,6 +8,7 @@ public class JoystickIzquierdo : MonoBehaviour
     public int velocidad;
     public Rigidbody2D rb;
     public bool conFisicas;
+    public Animator animator;
     void Start()
     {
         
@@ -23,5 +24,16 @@ public class JoystickIzquierdo : MonoBehaviour
         {
             gameObject.transform.Translate(direction * velocidad * Time.deltaTime);
         }
+        if(direction.magnitude == 0)
+        {
+            Debug.Log(direction.magnitude);
+            animator.SetBool("isWalking", false);
+        }
+        else if(direction.magnitude != 0)
+        {
+            Debug.Log(direction.magnitude);
+            animator.SetBool("isWalking", true);
+        }
+        
     }
 }
